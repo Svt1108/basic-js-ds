@@ -19,37 +19,43 @@ class BinarySearchTree {
     let newNode = new Node(data);
     if (this.rootNode == null) {
       this.rootNode = newNode;
-      console.log(this.rootNode);
-    }
-    //    if (this.rootNode.data == newNode.data) return;
-    else {
+      //      console.log(this.rootNode);
+    } else {
       let link = this.rootNode;
-      //      console.log(newNode.data);
-      // let i = 0;
       while (1) {
         if (newNode.data == link.data) return;
         if (newNode.data < link.data) {
           if (link.left == null) {
             link.left = newNode;
-            //           console.log(link);
             return;
           } else link = link.left;
         }
         if (newNode.data > link.data) {
           if (link.right == null) {
             link.right = newNode;
-            //           console.log(link);
             return;
           } else link = link.right;
         }
-        // i++;
       }
     }
   }
 
-  has(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  has(data) {
+    let link = this.rootNode;
+    //   console.log(link);
+    return this.lookFor(link, data);
+  }
+
+  lookFor(link, data) {
+    if (data < link.data) {
+      if (link.left == null) return false;
+      else return this.lookFor(link.left, data);
+    } else if (data > link.data) {
+      if (link.right == null) return false;
+      else return this.lookFor(link.right, data);
+    } else {
+      return true;
+    }
   }
 
   find(/* data */) {
@@ -79,7 +85,7 @@ module.exports = {
 
 const tree = new BinarySearchTree();
 tree.add(4);
-console.log(tree.root());
+//console.log(tree.root());
 tree.add(1);
 tree.add(3);
 //tree.add(4);
@@ -89,5 +95,8 @@ tree.add(6);
 tree.add(0);
 tree.add(8);
 tree.add(7);
-//console.log(tree.root());
+//console.log(tree);
+console.log(tree.has(10));
+console.log(tree.has(6));
+console.log(tree.has(0));
 // tree.root().data;
