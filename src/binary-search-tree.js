@@ -42,25 +42,26 @@ class BinarySearchTree {
 
   has(data) {
     let link = this.rootNode;
-    //   console.log(link);
-    return this.lookFor(link, data);
+    let flag = this.lookFor(link, data);
+    if (flag === null) return false;
+    else return true;
   }
 
   lookFor(link, data) {
     if (data < link.data) {
-      if (link.left == null) return false;
+      if (link.left == null) return null;
       else return this.lookFor(link.left, data);
     } else if (data > link.data) {
-      if (link.right == null) return false;
+      if (link.right == null) return null;
       else return this.lookFor(link.right, data);
     } else {
-      return true;
+      return link;
     }
   }
 
-  find(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  find(data) {
+    let link = this.rootNode;
+    return this.lookFor(link, data);
   }
 
   remove(/* data */) {
