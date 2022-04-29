@@ -70,13 +70,25 @@ class BinarySearchTree {
   }
 
   min() {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+    if (this.rootNode.left == null && this.rootNode.right == null) return null;
+    let link = this.rootNode;
+    return this.lookMin(link);
+  }
+
+  lookMin(link) {
+    if (link.left == null) return link.data;
+    else return this.lookMin(link.left);
   }
 
   max() {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+    if (this.rootNode.left == null && this.rootNode.right == null) return null;
+    let link = this.rootNode;
+    return this.lookMax(link);
+  }
+
+  lookMax(link) {
+    if (link.right == null) return link.data;
+    else return this.lookMax(link.right);
   }
 }
 
@@ -100,4 +112,6 @@ tree.add(7);
 console.log(tree.has(10));
 console.log(tree.has(6));
 console.log(tree.has(0));
+console.log(tree.min());
+console.log(tree.max());
 // tree.root().data;
