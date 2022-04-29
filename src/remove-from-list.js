@@ -48,7 +48,7 @@ function removeKFromList(l, k) {
       head = head.next;
       link = head;
     }
-    l = head;
+
     /* удаление совпадающих c k элементов из середины и из конца */
     let link2;
     if (link.next != null) {
@@ -64,6 +64,7 @@ function removeKFromList(l, k) {
     }
   }
 
+  l = head;
   return l;
 }
 
