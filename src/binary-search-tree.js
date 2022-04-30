@@ -77,11 +77,11 @@ class BinarySearchTree {
         link = null;
         return;
       }
-      if (link.left === null) {
+      if (!link.left) {
         link = link.right;
         return link;
       }
-      if (link.right === null) {
+      if (!link.right) {
         link = link.left;
         return link;
       }
