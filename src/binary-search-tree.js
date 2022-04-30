@@ -19,7 +19,6 @@ class BinarySearchTree {
     let newNode = new Node(data);
     if (this.rootNode == null) {
       this.rootNode = newNode;
-      //      console.log(this.rootNode);
     } else {
       let link = this.rootNode;
       while (1) {
@@ -41,8 +40,8 @@ class BinarySearchTree {
   }
 
   has(data) {
-    let link = this.rootNode;
-    let flag = this.lookFor(link, data);
+    let linkRoot = this.rootNode;
+    let flag = this.lookFor(linkRoot, data);
     if (flag === null) return false;
     else return true;
   }
@@ -60,19 +59,50 @@ class BinarySearchTree {
   }
 
   find(data) {
-    let link = this.rootNode;
-    return this.lookFor(link, data);
+    let linkRoot = this.rootNode;
+    return this.lookFor(linkRoot, data);
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  lookForRemove(link, data) {
+    if (link === 0) return null;
+    if (data < link.data) {
+      link.left = this.lookForRemove(link.left, data);
+      return link;
+    } else if (data > link.data) {
+      link.right = this.lookForRemove(link.right, data);
+      return link;
+    } else {
+      if (link.left === null && link.right === null) {
+        link.data = null;
+        link = null;
+        return;
+      }
+      if (!link.left) {
+        link = link.right;
+        return link;
+      }
+      if (!link.right) {
+        link = link.left;
+        return link;
+      }
+
+      let linkRoot = link.right;
+      let minData = this.lookMin(linkRoot);
+
+      link.data = minData;
+      link.right = this.lookForRemove(link.right, minData);
+      return link;
+    }
+  }
+
+  remove(data) {
+    this.rootNode = this.lookForRemove(this.rootNode, data);
   }
 
   min() {
     if (this.rootNode.left == null && this.rootNode.right == null) return null;
-    let link = this.rootNode;
-    return this.lookMin(link);
+    let linkRoot = this.rootNode;
+    return this.lookMin(linkRoot);
   }
 
   lookMin(link) {
@@ -82,8 +112,8 @@ class BinarySearchTree {
 
   max() {
     if (this.rootNode.left == null && this.rootNode.right == null) return null;
-    let link = this.rootNode;
-    return this.lookMax(link);
+    let linkRoot = this.rootNode;
+    return this.lookMax(linkRoot);
   }
 
   lookMax(link) {
@@ -98,20 +128,20 @@ module.exports = {
 
 const tree = new BinarySearchTree();
 tree.add(4);
-//console.log(tree.root());
 tree.add(1);
 tree.add(3);
-//tree.add(4);
 tree.add(2);
 tree.add(5);
 tree.add(6);
-tree.add(0);
+tree.add(11);
 tree.add(8);
 tree.add(7);
-//console.log(tree);
-console.log(tree.has(10));
-console.log(tree.has(6));
-console.log(tree.has(0));
-console.log(tree.min());
-console.log(tree.max());
-// tree.root().data;
+tree.add(9);
+tree.remove(7);
+tree.remove(8);
+tree.remove(2);
+tree.remove(3);
+console.log(tree.has(7));
+console.log(tree.has(8));
+console.log(tree.has(2));
+console.log(tree.has(3));
